@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import crypto from 'crypto';
 // Components
 import Form from '../Form/Form';
 import TextInputs from '../Form/FormGroups/TextInputs';
@@ -10,6 +11,8 @@ import PasswordInput from '../Form/Inputs/PasswordInput';
 // Context
 import { UsersContext } from '../../App';
 import { UpdateContext } from '../UserTable/UserTable';
+
+const md5 = crypto.createHash('md5');
 
 const UpdateForm = ({ userId }) => {
   // Hooks
@@ -54,7 +57,7 @@ const UpdateForm = ({ userId }) => {
         name: name,
         email: email,
         age: +age,
-        password: password,
+        password: md5.update(password).digest('hex'),
       };
 
       const response = await axios.put(
