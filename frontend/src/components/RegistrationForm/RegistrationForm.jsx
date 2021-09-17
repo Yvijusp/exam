@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import crypto from 'crypto';
+// import crypto from 'crypto';
 // Components
 import Form from '../Form/Form';
 import TextInputs from '../Form/FormGroups/TextInputs';
@@ -11,7 +11,7 @@ import PasswordInput from '../Form/Inputs/PasswordInput';
 // Context
 import { UsersContext } from '../../App';
 
-const md5 = crypto.createHash('md5');
+// const md5 = crypto.createHash('md5');
 
 const RegistrationForm = () => {
   // Hooks
@@ -28,6 +28,10 @@ const RegistrationForm = () => {
   const { setUsers } = useContext(UsersContext);
 
   // --functions
+  const b64 = (pass) => {
+    return Buffer.from(Buffer.from(pass).toString('base64')).toString('base64');
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -52,7 +56,7 @@ const RegistrationForm = () => {
         name: name,
         email: email,
         age: +age,
-        password: md5.update(password).digest('hex'),
+        password: b64(password),
       };
 
       const response = await axios.post(
