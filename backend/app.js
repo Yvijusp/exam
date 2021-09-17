@@ -61,5 +61,18 @@ app.put('/users/update/:id', async (req, res) => {
 
   updatedUser.save();
 
-  res.send(updatedUser);
+  const userData = await User.find();
+
+  res.send({ message: 'Data successfully updated', userData: userData });
+});
+
+// Delete user and update database
+app.delete('/users/delete/:id', async (req, res) => {
+  const userId = req.params.id;
+  if (!userId)
+    return res.status(400).send({ error: "User with this id doesn't exist" });
+
+  await User.findByIdAndDelete(userId);
+
+  res.send({ message: 'User deleted' });
 });
