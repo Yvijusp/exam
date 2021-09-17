@@ -10,19 +10,22 @@ import PasswordInput from '../Form/Inputs/PasswordInput';
 // Context
 import { UsersContext } from '../../App';
 
-const RegistrationForm = () => {
+const UpdateForm = ({ userId }) => {
   // Hooks
   // --state
-  // ---local
+  // --- local
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
-
-  // ---global
+  // --- global
   const { setUsers } = useContext(UsersContext);
+
+  // --reference
+
+  // --side effects
 
   // --functions
   const submitHandler = async (e) => {
@@ -52,18 +55,18 @@ const RegistrationForm = () => {
         password: password,
       };
 
-      const response = await axios.post(
-        'http://localhost:5000/users/register',
+      const response = await axios.put(
+        `http://localhost:5000/users/update/${userId}`,
         {
           ...user,
         }
       );
 
-      console.log(response.data);
+      console.log(response.data.userData);
       setMessage(response.data.message);
       setUsers(response.data.userData);
     } catch (error) {
-      setMessage(error.response.data.message);
+      setMessage(error.response?.data?.message);
 
       setEmail('');
       setPassword('');
@@ -74,7 +77,7 @@ const RegistrationForm = () => {
   return (
     <>
       <Form onSubmit={submitHandler}>
-        <h2 className='mb-1'>Registracijos forma</h2>
+        <h2 className='mb-1'>Atnaujinimo forma</h2>
         <TextInputs>
           <TextInput
             id='name'
@@ -117,4 +120,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default UpdateForm;

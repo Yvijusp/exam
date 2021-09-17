@@ -43,11 +43,25 @@ app.post('/users/register', async (req, res) => {
   const user = req.body;
   if (!user) return res.status(400).send({ error: 'Wrong user input' });
 
+  const registeredUsers = await User.find();
+
+  const existingUsers = registeredUsers.some(
+    (user) => user.email === req.body.email
+  );
+
+  if (existingUsers)
+    return res
+      .status(409)
+      .send({ message: 'Vartotojas šiuo paštu jau užsiregistraves' });
+
   const newUser = new User(user);
 
   newUser.save();
 
-  res.send({ message: 'Registered successfully' });
+  res.send({
+    message: 'Vartotojas užregistruotas',
+    userData: [...registeredUsers, newUser],
+  });
 });
 
 // Update user and send it to database
@@ -63,7 +77,7 @@ app.put('/users/update/:id', async (req, res) => {
 
   const userData = await User.find();
 
-  res.send({ message: 'Data successfully updated', userData: userData });
+  res.send({ message: 'Vartotojas atnaujintas', userData: userData });
 });
 
 // Delete user and update database
@@ -74,5 +88,7 @@ app.delete('/users/delete/:id', async (req, res) => {
 
   await User.findByIdAndDelete(userId);
 
-  res.send({ message: 'User deleted' });
+  const userData = await User.find();
+
+  res.send({ message: 'User deleted', userData: userData });
 });

@@ -7,4 +7,12 @@ export const GlobalStyle = createGlobalStyle`
   padding: 0;
   margin: 0;
 }
+
+.mb-1 {
+  margin-bottom: 0.8rem;
+}
+
+.text-center {
+  text-align: center;
+}
 `;
