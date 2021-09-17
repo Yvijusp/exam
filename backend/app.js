@@ -11,6 +11,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Models
+import User from './models/UserModel.js';
+
 // Connection to MongoDB
 
 mongoose
@@ -22,3 +25,13 @@ mongoose
       )
     )
   );
+
+app.get('/', (req, res) => {
+  res.send({ messsage: 'API is running' });
+});
+
+app.get('/users', async (req, res) => {
+  const userData = await User.find();
+
+  res.send(userData);
+});
