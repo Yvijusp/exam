@@ -26,12 +26,26 @@ mongoose
     )
   );
 
+// Route that tells if API is running
 app.get('/', (req, res) => {
   res.send({ messsage: 'API is running' });
 });
 
+// Get's all users from database
 app.get('/users', async (req, res) => {
   const userData = await User.find();
 
   res.send(userData);
+});
+
+// Add a user to database
+app.post('/users/register', async (req, res) => {
+  const user = req.body;
+  if (!user) return res.status(400).send({ error: 'Wrong user input' });
+
+  const newUser = new User(user);
+
+  newUser.save();
+
+  res.send({ message: 'Registered successfully' });
 });
