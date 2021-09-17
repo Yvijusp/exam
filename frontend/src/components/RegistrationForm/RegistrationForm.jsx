@@ -59,7 +59,6 @@ const RegistrationForm = () => {
         }
       );
 
-      console.log(response.data);
       setMessage(response.data.message);
       setUsers(response.data.userData);
     } catch (error) {

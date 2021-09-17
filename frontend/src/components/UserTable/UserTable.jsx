@@ -6,6 +6,9 @@ import TableRows from './TableRows';
 import { UsersContext } from '../../App';
 import CircleLoader from 'react-spinners/CircleLoader';
 
+// Context
+export const UpdateContext = React.createContext();
+
 const UserTable = () => {
   // Hooks
   // --state
@@ -62,7 +65,9 @@ const UserTable = () => {
         </tbody>
       </Table>
       <UsersContext.Provider value={{ setUsers }}>
-        {update.value && <UpdateForm userId={update.id} />}
+        <UpdateContext.Provider value={{ setUpdate }}>
+          {update.value && <UpdateForm userId={update.id} />}
+        </UpdateContext.Provider>
       </UsersContext.Provider>
     </>
   );

@@ -19,7 +19,6 @@ function App() {
   useEffect(() => {
     if (isLoading) {
       axios.get('http://localhost:5000/users').then((response) => {
-        console.log(response.data);
         setUsers(response.data);
         setIsLoading(false);
       });

@@ -8,6 +8,10 @@ export const GlobalStyle = createGlobalStyle`
   margin: 0;
 }
 
+body {
+  background-color: #f4f4f4;
+}
+
 .mb-1 {
   margin-bottom: 0.8rem;
 }

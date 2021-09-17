@@ -9,6 +9,7 @@ import SubmitButton from '../Buttons/SubmitButton';
 import PasswordInput from '../Form/Inputs/PasswordInput';
 // Context
 import { UsersContext } from '../../App';
+import { UpdateContext } from '../UserTable/UserTable';
 
 const UpdateForm = ({ userId }) => {
   // Hooks
@@ -22,6 +23,7 @@ const UpdateForm = ({ userId }) => {
   const [message, setMessage] = useState('');
   // --- global
   const { setUsers } = useContext(UsersContext);
+  const { setUpdate } = useContext(UpdateContext);
 
   // --reference
 
@@ -62,9 +64,9 @@ const UpdateForm = ({ userId }) => {
         }
       );
 
-      console.log(response.data.userData);
       setMessage(response.data.message);
       setUsers(response.data.userData);
+      setUpdate({ value: false, id: '' });
     } catch (error) {
       setMessage(error.response?.data?.message);
 
