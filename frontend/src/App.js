@@ -1,8 +1,19 @@
+import Container from './components/Container/Container';
+import RegistrationForm from './components/RegistrationForm/RegistrationForm';
+import Wrapper from './components/Wrapper/Wrapper';
+import { GlobalStyle } from './GlobalStyles';
+
 function App() {
   return (
-    <div className='App'>
-      <h1>Hello world</h1>
-    </div>
+    <>
+      <GlobalStyle />
+      <Wrapper>
+        <h1>Admin Panel</h1>
+        <Container>
+          <RegistrationForm />
+        </Container>
+      </Wrapper>
+    </>
   );
 }
 
