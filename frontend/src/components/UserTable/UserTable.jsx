@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Table } from './UserTable.styled';
 import TableRows from './TableRows';
 import { UsersContext } from '../../App';
+import CircleLoader from 'react-spinners/CircleLoader';
 
 const UserTable = () => {
   // Hooks
@@ -35,7 +36,7 @@ const UserTable = () => {
   };
 
   return !users?.length ? (
-    <p>Loading...</p>
+    <CircleLoader />
   ) : (
     <>
       <Table>
