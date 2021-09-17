@@ -2,3 +2,5 @@ Egzaminas.pdf
 Vertinimas.pdf
 /backend/node_modules
 .rest
+
+.env
